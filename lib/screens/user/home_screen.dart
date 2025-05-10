@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_5_wd/models/post_model.dart';
-import 'package:flutter_5_wd/post_card.dart';
 import 'package:flutter_5_wd/providers/post_provider.dart';
 import 'package:flutter_5_wd/services/api_service.dart';
+import 'package:flutter_5_wd/widgets/post_card.dart';
 
 import '../../providers/model_provider.dart';
 
