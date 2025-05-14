@@ -31,6 +31,7 @@ class SessionNotifier extends ChangeNotifier {
     } on ApiException catch (e) {
       token = null;
       user = null;
+      await prefs.remove('token');
     }
 
     notifyListeners();
