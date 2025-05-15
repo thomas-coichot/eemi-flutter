@@ -8,11 +8,13 @@ class SmartTable<T extends ModelProvider> extends StatefulWidget {
   const SmartTable({
     required this.provider,
     required this.title,
+    required this.getTitle,
     super.key,
   });
 
   final T provider;
   final String title;
+  final String Function(dynamic) getTitle;
 
   @override
   State<SmartTable> createState() => _SmartTableState();
@@ -68,7 +70,7 @@ class _SmartTableState extends State<SmartTable> {
                   onTap: () {
                     goTo(context);
                   },
-                  title: Text(_items[index].description),
+                  title: Text(widget.getTitle(_items[index])),
                 );
               },
             ),

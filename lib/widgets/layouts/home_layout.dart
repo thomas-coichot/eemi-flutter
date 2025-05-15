@@ -59,6 +59,13 @@ class _HomeLayoutState extends State<HomeLayout> {
                             context.go(rtAdminPosts);
                           },
                         ),
+                        ListTile(
+                          leading: Icon(Icons.group),
+                          title: Text('Users'),
+                          onTap: () {
+                            context.go(rtAdminUsers);
+                          },
+                        ),
                       ],
                     ),
                   ),

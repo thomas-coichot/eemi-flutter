@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_5_wd/notifiers/session_notifier.dart';
 import 'package:flutter_5_wd/screens/admin/posts/posts_screen.dart';
+import 'package:flutter_5_wd/screens/admin/users/users_screen.dart';
 import 'package:flutter_5_wd/screens/security/login_screen.dart';
 import 'package:flutter_5_wd/screens/user/home_screen.dart';
 import 'package:flutter_5_wd/widgets/layouts/home_layout.dart';
@@ -12,6 +13,7 @@ const rtLogin = '/login';
 const rtAccount = '/account';
 const rtAdmin = '/admin';
 const rtAdminPosts = '$rtAdmin/posts';
+const rtAdminUsers = '$rtAdmin/users';
 
 String? hasAdminPermissions(BuildContext context, GoRouterState state) {
   final session = context.read<SessionNotifier>();
@@ -73,6 +75,12 @@ final router = GoRouter(
           path: rtAdminPosts,
           builder: (BuildContext context, GoRouterState state) {
             return AdminPostsScreen();
+          },
+        ),
+        GoRoute(
+          path: rtAdminUsers,
+          builder: (BuildContext context, GoRouterState state) {
+            return AdminUsersScreen();
           },
         ),
       ],

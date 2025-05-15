@@ -15,6 +15,7 @@ class _AdminPostsScreenState extends State<AdminPostsScreen> {
     return SmartTable<PostProvider>(
       provider: PostProvider(),
       title: 'Posts',
+      getTitle: (item) => item.description,
     );
   }
 }
