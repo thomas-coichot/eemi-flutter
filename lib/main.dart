@@ -1,22 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_5_wd/config/constants.dart';
 import 'package:flutter_5_wd/config/router.dart';
 import 'package:flutter_5_wd/config/theme.dart';
 import 'package:flutter_5_wd/notifiers/session_notifier.dart';
 import 'package:flutter_5_wd/notifiers/theme_notifier.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'services/platform/platform_default.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  usePathUrlStrategy();
+
+  setUrlStrategy();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   MultiProvider multiProvider = MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ThemeNotifier()),
       ChangeNotifierProvider(create: (_) => SessionNotifier()),
     ],
-    child: const MyApp(),
+    child: const ToastificationWrapper(
+      child: MyApp(),
+    ),
   );
   runApp(multiProvider);
 }

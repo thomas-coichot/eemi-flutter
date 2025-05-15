@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "707776487238",
+    "project_id": "eemi-8d4ff",
+    "storage_bucket": "eemi-8d4ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707776487238:android:afdf2ce275df61c2614f47",
+        "android_client_info": {
+          "package_name": "com.eemi.flutter.flutter_5_wd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1LXZXCCSIyPjV-t_G0r9JKsNrF7fezqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

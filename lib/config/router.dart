@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_5_wd/notifiers/session_notifier.dart';
+import 'package:flutter_5_wd/screens/admin/posts/posts_screen.dart';
 import 'package:flutter_5_wd/screens/security/login_screen.dart';
 import 'package:flutter_5_wd/screens/user/home_screen.dart';
 import 'package:flutter_5_wd/widgets/layouts/home_layout.dart';
@@ -69,19 +70,10 @@ final router = GoRouter(
           },
         ),
         GoRoute(
-          path: rtAdmin,
-          redirect: hasAdminPermissions,
+          path: rtAdminPosts,
           builder: (BuildContext context, GoRouterState state) {
-            return Scaffold();
+            return AdminPostsScreen();
           },
-          routes: [
-            GoRoute(
-              path: rtAdminPosts,
-              builder: (BuildContext context, GoRouterState state) {
-                return Scaffold();
-              },
-            ),
-          ],
         ),
       ],
     ),

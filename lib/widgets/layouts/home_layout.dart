@@ -49,6 +49,19 @@ class _HomeLayoutState extends State<HomeLayout> {
               width: 300,
               child: Column(
                 children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(Icons.post_add_sharp),
+                          title: Text('Posts'),
+                          onTap: () {
+                            context.go(rtAdminPosts);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                   ListTile(
                     leading: Icon(Icons.login),
                     title: Text('Se connecter'),
