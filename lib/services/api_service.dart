@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const baseUrl = 'https://eemi-39b84a24258a.herokuapp.com';
+  static const baseUrl = kDebugMode ? 'http://192.168.1.125:8080' : 'https://eemi-39b84a24258a.herokuapp.com';
 
   static Future request({
     required String uri,
@@ -54,6 +54,7 @@ class ApiService {
           break;
       }
     } on http.ClientException catch (e) {
+      debugPrint(e.message);
       throw ApiException(
         httpCode: 500,
         type: 'ApiError',
@@ -63,8 +64,8 @@ class ApiService {
 
     if (kDebugMode) {
       print('$method [${response.statusCode}] - $url');
-      print('Headers: ${response.headers}');
-      print('Data: $body');
+      //print('Headers: ${response.headers}');
+      // print('Data: $body');
     }
 
     switch (response.statusCode) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_5_wd/notifiers/session_notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -7,26 +6,18 @@ import '../../config/constants.dart';
 import '../../config/router.dart';
 import '../../notifiers/theme_notifier.dart';
 import '../../utils.dart';
+import 'bottom_navigation.dart';
 
-class HomeLayout extends StatefulWidget {
+class HomeLayout extends StatelessWidget {
   const HomeLayout({required this.child, super.key});
 
   final Widget child;
 
   @override
-  State<HomeLayout> createState() => _HomeLayoutState();
-}
-
-class _HomeLayoutState extends State<HomeLayout> {
-  int _selectedIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final ThemeNotifier themeNotifier = context.watch<ThemeNotifier>();
-    final SessionNotifier session = context.watch<SessionNotifier>();
 
-    final appBar = AppBar(
+    final AppBar appBar = AppBar(
       title: const Text(appName),
       actions: [
         IconButton(
@@ -82,7 +73,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                       return ChoiceChip(
                         selected: themeNotifier.themeMode == itemTheme,
                         onSelected: (_) {
-                          _onTapTheme(itemTheme);
+                          _onTapTheme(context, itemTheme);
                         },
                         label: Text(_labelThemeMode(itemTheme)),
                       );
@@ -92,7 +83,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
             ),
             Expanded(
-              child: widget.child,
+              child: child,
             ),
           ],
         ),
@@ -101,51 +92,12 @@ class _HomeLayoutState extends State<HomeLayout> {
 
     return Scaffold(
       appBar: appBar,
-      body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (int index) => _onTapNavigation(index, session),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: colorScheme.onSurface,
-            ),
-            label: 'Home',
-          ),
-          if (session.isAuthenticated())
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-                color: colorScheme.onSurface,
-              ),
-              label: 'Mon compte',
-            )
-          else
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.login,
-                color: colorScheme.onSurface,
-              ),
-              label: 'Se connecter',
-            ),
-        ],
-      ),
+      body: child,
+      bottomNavigationBar: const BottomNavigation(),
     );
   }
 
-  void _onTapNavigation(int index, SessionNotifier session) {
-    switch (index) {
-      case 0:
-        return context.go(rtRoot);
-      case 1:
-        return context.go(session.isAuthenticated() ? rtAccount : rtLogin);
-    }
-  }
-
-  void _onTapTheme(ThemeMode themeMode) {
+  void _onTapTheme(BuildContext context, ThemeMode themeMode) {
     final ThemeNotifier themeNotifier = context.read<ThemeNotifier>();
 
     themeNotifier.changeTheme(themeMode);

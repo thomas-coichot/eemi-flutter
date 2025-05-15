@@ -4,6 +4,8 @@ import 'package:flutter_5_wd/providers/auth_provider.dart';
 import 'package:flutter_5_wd/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../services/notification_service.dart';
+
 class SessionNotifier extends ChangeNotifier {
   String? token;
   UserModel? user;
@@ -24,10 +26,7 @@ class SessionNotifier extends ChangeNotifier {
     try {
       final response = await AuthProvider().refresh();
 
-      token = response['token'];
-      user = UserModel.fromJson(response['user']);
-
-      await prefs.setString('token', token!);
+      onAuthenticationSuccess(response);
     } on ApiException catch (e) {
       token = null;
       user = null;
@@ -40,10 +39,22 @@ class SessionNotifier extends ChangeNotifier {
   void onAuthenticationSuccess(Map<String, dynamic> json) async {
     final prefs = await SharedPreferences.getInstance();
 
-    token = json['token'];
-    user = UserModel.fromJson(json['user']);
+    final notificationToken = await NotificationService.init();
 
-    await prefs.setString('token', token!);
+    token = json['token'];
+    await prefs.setString('token', json['token']);
+
+    if (notificationToken != null) {
+      try {
+        final response = await AuthProvider().refreshNotificationToken(notificationToken);
+
+        user = UserModel.fromJson(response);
+      } on ApiException catch (e) {
+        debugPrint('Error refreshing notification token: ${e.message}');
+      }
+    } else {
+      user = UserModel.fromJson(json['user']);
+    }
 
     notifyListeners();
   }

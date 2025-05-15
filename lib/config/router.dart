@@ -39,22 +39,28 @@ final router = GoRouter(
   initialLocation: rtRoot,
   routes: [
     ShellRoute(
-      builder: (BuildContext context, GoRouterState state, Widget child) {
-        return HomeLayout(
-          child: child,
+      pageBuilder: (BuildContext context, GoRouterState state, Widget child) {
+        return NoTransitionPage(
+          child: HomeLayout(
+            child: child,
+          ),
         );
       },
       routes: [
         GoRoute(
           path: rtRoot,
-          builder: (BuildContext context, GoRouterState state) {
-            return HomeScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return NoTransitionPage(
+              child: HomeScreen(),
+            );
           },
         ),
         GoRoute(
           path: rtLogin,
-          builder: (BuildContext context, GoRouterState state) {
-            return LoginScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return NoTransitionPage(
+              child: LoginScreen(),
+            );
           },
         ),
         GoRoute(

@@ -15,4 +15,14 @@ class AuthProvider {
       method: 'POST',
     );
   }
+
+  Future refreshNotificationToken(String token) {
+    return ApiService.request(
+      uri: 'notification-token',
+      method: 'POST',
+      data: {
+        'notification_token': token,
+      },
+    );
+  }
 }
