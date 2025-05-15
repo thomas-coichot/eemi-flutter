@@ -57,12 +57,12 @@ class _SmartTableState extends State<SmartTable> {
             padding: const EdgeInsets.all(16.0),
             child: Text(widget.title),
           ),
-          Divider(),
+          Divider(height: 1),
           if (_isLoading) LinearProgressIndicator(),
           Expanded(
             child: ListView.separated(
               controller: _scrollController,
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => Divider(height: 1),
               itemCount: _items.length,
               itemBuilder: (context, index) {
                 return ListTile(
